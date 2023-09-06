@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
-  root 'home#index'
+  root 'public#index'
 
-  resources :users
+  resources :users do
+    resources :reviews
+  end
 
-  post '/login' => 'users#login'
-  get '*path' => 'home#not_found'
+  post '/login' => 'public#login'
+  get '/profile' => 'private#profile'
+  get '*path' => 'public#not_found'
 end
