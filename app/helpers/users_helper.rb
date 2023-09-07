@@ -55,4 +55,30 @@ module UsersHelper
 			render json: user.errors.full_messages
 		end
 	end
+
+	def render_success_or_invalid_message(user)
+		if user.nil?
+			render json: 'given id not found!'
+		else
+			user.destroy
+			render json: 'user removed successfully!'
+		end
+	end
+
+	def render_user_or_error_message(user)
+		if user.nil?
+			render json: 'given id not found!'
+		else
+			render json: user
+		end
+	end
+
+	def render_updated_user_or_error_message(user, user_params)
+		if user.nil?
+			render json: 'given id not found!'
+		else
+			user.update(user_params)
+			render json: user
+		end
+	end
 end

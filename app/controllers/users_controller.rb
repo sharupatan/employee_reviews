@@ -14,18 +14,17 @@ class UsersController < PrivateController
 
 	def show
 		@user = User.find_by(id: params[:id])
-		render json: @user
+		render_user_or_error_message(@user)
 	end
 
 	def update
 		@user = User.find_by(id: params[:id])
-		@user.update(user_params)
-		render json: @user
+		render_updated_user_or_error_message(@user, user_params)
 	end
 
 	def destroy
-		User.find_by(id: params[:id]).destroy
-		render json: 'user removed successfully!'
+		@user = User.find_by(id: params[:id])
+		render_success_or_invalid_message(@user)
 	end
 
 	private
