@@ -49,3 +49,4 @@ end
 gem 'jwt'
 
 gem 'cancancan'
+gem "devise", "~> 4.9"
