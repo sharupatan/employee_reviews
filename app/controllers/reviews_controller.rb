@@ -3,29 +3,28 @@ class ReviewsController < PrivateController
 	# load_and_authorize_resource
 	
 	def index
-		@reviews = Review.all
-		render json: @reviews
+		@user = User.find_by(id: params[:user_id])
+		render_user_error_or_reviews(@user)
 	end
 
 	def create
-		@review = User.new(review_params)
-		render_success_or_error_message(@review)
+		@user = User.find_by(id: params[:user_id])
+		render_success_or_user_error(@user)
 	end
 
 	def show
-		@review = User.find_by(id: params[:id])
-		render json: @review
+		@user = User.find_by(id: params[:user_id])
+		render_review_or_user_error_message(@user)
 	end
 
 	def update
-		@review = User.find_by(id: params[:id])
-		@review.update(review_params)
-		render json: @review
+		@user = User.find_by(id: params[:user_id])
+		render_user_error_or_update_message(@user)
 	end
 
 	def destroy
-		User.find_by(id: params[:id]).destroy
-		render json: 'review removed successfully!'
+		@user = User.find_by(id: params[:user_id])
+		render_user_error_or_success_message(@user)
 	end
 
 	private
